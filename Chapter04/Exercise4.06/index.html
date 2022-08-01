@@ -1,0 +1,21 @@
+<html>
+  <body>
+    <div id="root"></div>
+    <script type="text/javascript">
+      const todoListItems = [
+        'buy flowers',
+        'tidy up',
+        'go to the gym'
+      ];
+      const rootElement = document.getElementById('root');
+      const listFragment = document.createDocumentFragment();
+      todoListItems.forEach(item => {
+        const currentItemElement = document.createElement('li');
+        currentItemElement.textContent = item;
+        listFragment.appendChild(currentItemElement)
+      });
+
+      rootElement.appendChild(listFragment)
+    </script>
+  </body>
+</html>
