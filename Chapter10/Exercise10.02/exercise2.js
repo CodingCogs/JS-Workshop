@@ -3,7 +3,7 @@ $(document).ready(function () {
     $.ajax({
         method: 'GET',
         dataType: 'json',
-        url: 'https://www.thesportsdb.com/api/v1/json/1/eventslast.php',
+        url: 'https://www.thesportsdb.com/api/v1/json/2/eventslast.php',
         data: {id: 134862},
         success: function (data) {
 		
