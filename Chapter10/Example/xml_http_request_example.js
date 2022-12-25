@@ -1,4 +1,4 @@
-const url = "https://www.thesportsdb.com/api/v1/json/1/lookupevent.php?id=441613";
+const url = "https://www.thesportsdb.com/api/v1/json/2/eventslast.php?id=134862";
 
 var xhttp = new XMLHttpRequest();
 xhttp.open('GET', url);
@@ -8,7 +8,7 @@ xhttp.onreadystatechange = function() {
         const data = JSON.parse(this.response);
 	  
       
-      const game = data.events[0];
+      const game = data.results[0];
 
 	  
         document.getElementById("game_date").innerHTML = game.dateEvent;
@@ -16,8 +16,8 @@ xhttp.onreadystatechange = function() {
         document.getElementById("away_team").innerHTML = game.strAwayTeam;
 
         document.getElementById("home_team").innerHTML = game.strHomeTeam;
-        document.getElementById("away_score").innerHTML = lastGame.intAwayScore;
-        document.getElementById("home_score").innerHTML = lastGame.intHomeScore;
+        document.getElementById("away_score").innerHTML = game.intAwayScore;
+        document.getElementById("home_score").innerHTML = game.intHomeScore;
 	  
         document.getElementById("game_table").style.display = 'block';
     }
