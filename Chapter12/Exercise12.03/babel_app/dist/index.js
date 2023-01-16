@@ -1,5 +1,1 @@
-"use strict";
-
-[1, 2, 3].map(function (value) {
-  return console.log("Mapping value ", value);
-});
+(()=>{"use strict";[1,2,3].map((function(n){return console.log("Mapping value ",n)}))})();
