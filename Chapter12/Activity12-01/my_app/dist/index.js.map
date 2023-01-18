@@ -1,1 +1,1 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";AACA,aADA,IAAM,EAAiB,gBACvB,QAAQ,IAAI","file":"index.js","sourceRoot":"../src","sourcesContent":["const message:string = \"Hello, World!\";\nconsole.log(message);\n"]}
+{"mappings":"AAAA,MAAM,gCAAiB;AACvB,QAAQ,GAAG,CAAC","sources":["src/index.ts"],"sourcesContent":["const message:string = \"Hello, World!\";\nconsole.log(message);\n"],"names":[],"version":3,"file":"index.js.map"}

@@ -1,14 +1,14 @@
 {
-  "name": "my_app",
+  "name": "activity_app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "parcel build src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^3.6.4"
+    "typescript": "^4.9.4"
   }
 }
