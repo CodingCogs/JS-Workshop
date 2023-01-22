@@ -1,35 +1,31 @@
 <html>
+
 <head>
-    <meta charset="utf-8"/>
-	<script src="players.js"></script>
+  <meta charset="utf-8" />
+  <script src="comments.js"></script>
 </head>
 
 <body>
 
-Arsenal Player Honors:
-<ul id="honorsList"></ul>
+  Comments List:
+  <ul id="commentsList"></ul>
 
-<script>
+  <script>
 
-myFetch(ALL_LEAGUES_URL)
-  .then(leagueData => {
-      const leagueId = findLeagueId(leagueData, LEAGUE_NAME);
-      return myFetch(ALL_TEAMS_URL, {id: leagueId});
-  })
-  .then(teamData => {
-      const teamId = findTeamId(teamData, TEAM_NAME);
-      return myFetch(ALL_PLAYERS_URL, {id: teamId});
-  })
-  .then(playerData => {
-      const honorReqests = playerData.player.map(player =>
-          myFetch(PLAYER_HONORS_URL, {id: player.idPlayer}));
-      return Promise.all(honorReqests);
-  })
-  .then(honorResponses => honorResponses.forEach(printHonors))
-  .catch(error => console.log(error));
+    myFetch(ALL_USERS_URL)
+      .then(userData => {
+        const userId = findUserId(userData, USER_NAME);
+        return myFetch(USER_POSTS_URL, { userId: userId });
+      })
+      .then(postData => {
+        const commentRequests = postData.map(post =>
+          myFetch(POST_COMMENTS_URL, { postId: post.id }));
+        return Promise.all(commentRequests);
+      })
+      .then(commentResponses => commentResponses.forEach(printComments))
+      .catch(error => console.log(error));
 
-</script>
-
+  </script>
 </body>
 
 </html>
