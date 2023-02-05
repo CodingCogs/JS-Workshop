@@ -6,10 +6,10 @@ function addDelay(ms, promise) {
     );
 }
 
-const BASE_URL = "https://www.thesportsdb.com/api/v1/json/1/";
-const nextEventUrl = BASE_URL + "eventsnextleague.php?id=4328";
+const BASE_URL = "https://jsonplaceholder.typicode.com/";
+const USER_POSTS_URL = BASE_URL + "posts?userId=1";
 
 
-addDelay(3000, fetch(nextEventUrl))
+addDelay(3000, fetch(USER_POSTS_URL))
   .then(response => response.json())
-  .then(nextEvents => console.log(nextEvents.events[0].strEvent));
+  .then(userPosts => console.log(userPosts[0].body));

@@ -1,31 +1,31 @@
 <html>
-
 <head>
-  <meta charset="utf-8" />
-  <script src="comments.js"></script>
+    <meta charset="utf-8"/>
+	<script src="comments.js"></script>
 </head>
 
 <body>
 
-  Comments List:
-  <ul id="commentsList"></ul>
+Comments List:
+<ul id="commentsList"></ul>
 
-  <script>
+<script>
 
-    myFetch(ALL_USERS_URL)
-      .then(userData => {
-        const userId = findUserId(userData, USER_NAME);
-        return myFetch(USER_POSTS_URL, { userId: userId });
-      })
-      .then(postData => {
-        const commentRequests = postData.map(post =>
-          myFetch(POST_COMMENTS_URL, { postId: post.id }));
-        return Promise.all(commentRequests);
-      })
-      .then(commentResponses => commentResponses.forEach(printComments))
-      .catch(error => console.log(error));
+myFetch(ALL_USERS_URL)
+  .then(userData => {
+      const userId = findUserId(userData, USER_NAME);
+      return myFetch(USER_POSTS_URL, {userId: userId});
+  })
+  .then(postData => {
+      const commentRequests = postData.map(post => 
+        myFetch(POST_COMMENTS_URL, {postId: post.id}));
+      return Promise.all(commentRequests);
+  })
+  .then(commentResponses => commentResponses.forEach(printComments))
+  .catch(error => console.log(error));
 
-  </script>
+</script>
+
 </body>
 
 </html>

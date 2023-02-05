@@ -1,41 +1,37 @@
 <html>
+
 <head>
-    <meta charset="utf-8"/>
-	<script src="players.js"></script>
+    <meta charset="utf-8" />
+    <script src="comments.js"></script>
 </head>
 
 <body>
 
-Arsenal Player Honors:
-<ul id="honorsList"></ul>
+    Comments List:
+    <ul id="commentsList"></ul>
 
-<script>
+    <script>
+        myFetch(ALL_USERS_URL)
+            .then(userData => getUserPosts(userData, USER_NAME))
+            .then(postData => getPostComments(postData))
+            .catch(error => console.log(error));
 
+        function getUserPosts(userData, userName) {
+            const userId = findUserId(userData, userName);
+            return myFetch(USER_POSTS_URL, { userId: userId });
+        }
 
-myFetch(ALL_LEAGUES_URL)
-  .then(leagueData => getTeamsInLeague(leagueData, LEAGUE_NAME))
-  .then(teamData => getPlayersOnTeam(teamData, TEAM_NAME))
-  .then(playerData => getPlayerHonors(playerData))
-  .catch(console.log);
+        function getPostComments(postData) {
+            var sequence = Promise.resolve();
+            postData.forEach(post =>
+                sequence
+                    .then(() => myFetch(POST_COMMENTS_URL, { postId: post.id }))
+                    .then(printComments))
 
-function getTeamsInLeague(leagueData, leagueName) {
-    const leagueId = findLeagueId(leagueData, leagueName);
-    return myFetch(ALL_TEAMS_URL, {id: leagueId});
-}
-function getPlayersOnTeam(teamData, teamName) {
-   const teamId = findTeamId(teamData, teamName);
-   return myFetch(ALL_PLAYERS_URL, {id: teamId});
-}
-function getPlayerHonors(playerData) {
-    const sequence = Promise.resolve();
-    playerData.player.forEach(player =>
-        sequence
-          .then(() => myFetch(PLAYER_HONORS_URL, {id: player.idPlayer}))
-          .then(printHonors));
-    return sequence;
-}
+            return sequence;
+        }
 
-</script>
+    </script>
 
 </body>
 
