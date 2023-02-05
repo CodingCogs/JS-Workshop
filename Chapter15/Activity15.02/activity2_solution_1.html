@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="comments.js"></script>
+</head>
+
+<body>
+
+    Comments List:
+    <ul id="commentsList"></ul>
+
+    <script>
+
+// technique #1 - use a regular function that returns another curried function
+function getUserPosts(userName) {
+    return userData => {
+        const userId = findUserId(userData, userName);
+        return myFetch(USER_POSTS_URL, {userId: userId});
+    }
+}
+
+myFetch(ALL_USERS_URL)
+	.then(getUserPosts(USER_NAME))
+	.then(getPostComments)
+	.catch(console.log);
+
+function getPostComments(postData) {
+    var sequence = Promise.resolve();
+    postData.forEach(post =>
+        sequence
+            .then(() => myFetch(POST_COMMENTS_URL, { postId: post.id }))
+            .then(printComments))
+
+    return sequence;
+}
+
+</script>
+
+</body>
+
+</html>

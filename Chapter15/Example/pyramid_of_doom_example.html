@@ -1,35 +1,33 @@
 <html>
+
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="players.js"></script>
+    <script src="comments.js"></script>
 </head>
 
 <body>
 
-Arsenal Player Honors:
-<ul id="honorsList"></ul>
+    Comments List:
+    <ul id="commentsList"></ul>
 
-<script>
+    <script>
 
-// Pyramid of DOOM!!!
-$.getJSON(ALL_LEAGUES_URL, function(leagueData) {
-    const leagueId = findLeagueId(leagueData, LEAGUE_NAME);
-    $.getJSON(ALL_TEAMS_URL, {id: leagueId}, function(teamData) {
-        const teamId = findTeamId(teamData, TEAM_NAME);
-        $.getJSON(ALL_PLAYERS_URL, {id: teamId}, function(playerData) {
-            playerData.player.forEach(player => {
-                $.getJSON(PLAYER_HONORS_URL, {id: player.idPlayer},
-                    function(honorData) {
-                        printHonors(honorData);
-                    }
-                );
+        // Pyramid of DOOM!!!
+        $.getJSON(ALL_USERS_URL, function (userData) {
+            const userId = findUserId(userData, USER_NAME);
+            $.getJSON(USER_POSTS_URL, { userId: userId }, function (postData) {
+                postData.forEach(function (post) {
+                    $.getJSON(POST_COMMENTS_URL, { postId: post.id },
+                        function (commentData) {
+                            printComments(commentData);
+                        }
+                    );
+                });
             });
         });
-    });
-});
 
-</script>
+    </script>
 
 </body>
 

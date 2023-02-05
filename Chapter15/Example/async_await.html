@@ -1,15 +1,16 @@
 <html>
+
 <head>
-    <meta charset="utf-8"/>
-	<script src="players.js"></script>
+    <meta charset="utf-8" />
+    <script src="comments.js"></script>
 </head>
 
 <body>
 
-Arsenal Player Honors:
-<ul id="honorsList"></ul>
+    Comments List:
+    <ul id="commentsList"></ul>
 
-<script>
+    <script>
 
 async function myFetch(url, params) {
     if (params) {
@@ -25,31 +26,25 @@ async function myFetch(url, params) {
 
 (async () => {
     try {
-        let leagueData = await myFetch(ALL_LEAGUES_URL);
-        let teamData = await getTeamsInLeague(leagueData, LEAGUE_NAME);
-        let playerData = await getPlayersOnTeam(teamData, TEAM_NAME);
-        await getPlayerHonors(playerData);
-    } catch (err) {
-        console.log("caught error: " + err);
+        let userData = await myFetch(ALL_USERS_URL);
+        let postData = await getUserPosts(userData, USER_NAME);
+        await getPostComments(postData);
+    } catch (error) {
+        console.log(error);
     }
 })();
 
-async function getTeamsInLeague(leagueData, leagueName) {
-    const leagueId = findLeagueId(leagueData, leagueName);
-    return myFetch(ALL_TEAMS_URL, {id: leagueId});
+async function getUserPosts(userData, userName) {
+    const userId = findUserId(userData, userName);
+    return myFetch(USER_POSTS_URL, { userId: userId });
 }
 
-async function getPlayersOnTeam(teamData, teamName) {
-   const teamId = findTeamId(teamData, teamName);
-   return myFetch(ALL_PLAYERS_URL, {id: teamId});
-}
+async function getPostComments(postData) {
+    const postPromises = postData.map(async post =>
+        myFetch(POST_COMMENTS_URL, { postId: post.id }));
 
-async function getPlayerHonors(playerData) {
-    const playerPromises = playerData.player.map(async player =>
-        myFetch(PLAYER_HONORS_URL, {id: player.idPlayer}));
-
-    for (const playerPromise of playerPromises) {
-        printHonors(await playerPromise);
+    for (const postPromise of postPromises) {
+        printComments(await postPromise);
     }
 }
 

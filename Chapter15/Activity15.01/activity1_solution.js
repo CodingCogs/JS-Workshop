@@ -16,8 +16,8 @@ function addDelay(ms, promise) {
     );
 }
 
-const BASE_URL = "https://www.thesportsdb.com/api/v1/json/1/";
-const nextEventUrl = BASE_URL + "eventsnextleague.php?id=4328";
+const BASE_URL = "https://jsonplaceholder.typicode.com/";
+const USER_POSTS_URL = BASE_URL + "posts?userId=1";
 
 (async () => {
     let p1 = use1();
@@ -32,16 +32,16 @@ const nextEventUrl = BASE_URL + "eventsnextleague.php?id=4328";
 })();
 
 async function use1() {
-    let response = await addDelay(3000, fetch(nextEventUrl));
-    let nextEvents = await response.json();
-    console.log("Use case 1: " + nextEvents.events[0].strEvent);
+    let response = await addDelay(3000, fetch(USER_POSTS_URL));
+    let userPosts = await response.json();
+    console.log("Use case 1: " + userPosts[0].body);
 }
 
 async function use2() {
-    let response = await fetch(nextEventUrl);
+    let response = await fetch(USER_POSTS_URL);
     await addDelay(1000);
-    let nextEvents = await response.json();
-    console.log("Use case 2: " + nextEvents.events[1].strEvent);
+    let userPosts = await response.json();
+    console.log("Use case 2: " + userPosts[0].body);
 }
 
 async function use3() {
